@@ -34,7 +34,7 @@ services:
     working_dir: /var/www/html
     tty: true
     volumes:
-      - ./www/html:/app
+      - ./www/html:/var/www/html
     ports:
       - ${EXTERNAL_NODE_PORT:-5173}:5173
     restart: unless-stopped
@@ -45,7 +45,7 @@ services:
     image: mysql:latest
     command: mysqld --default-authentication-plugin=mysql_native_password
     volumes:
-      - ./www/html:/app
+      - ./www/html:/var/www/html
       - ./data.sql:/docker-entrypoint-initdb.d/data.sql
     environment:
       - MYSQL_DATABASE=db
