@@ -11,6 +11,8 @@ services:
     links:
       - php  
       - mysql
+    networks:
+      - task-dev    
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./www/html:/var/www/html
@@ -24,6 +26,8 @@ services:
        - 9000
     links:  
        - mysql
+    networks:
+      - task-dev    
     volumes:
       - ./www/html:/var/www/html
     restart: unless-stopped
@@ -31,12 +35,15 @@ services:
   node:
     image: node:19-alpine3.16
     container_name: vue.task.node
+    build: "./node/"
     working_dir: /var/www/html
     tty: true
     volumes:
       - ./www/html:/var/www/html
     ports:
       - ${EXTERNAL_NODE_PORT:-5173}:5173
+    networks:
+      - task-dev
     restart: unless-stopped
   
   mysql:
@@ -51,6 +58,11 @@ services:
       - MYSQL_DATABASE=db
       - MYSQL_ROOT_PASSWORD=pwd
       - MYSQL_USER=usr
-      - MYSQL_PASSWORD=pwd    
+      - MYSQL_PASSWORD=pwd
+    networks:
+      - task-dev    
     restart: unless-stopped
     
+networks:
+  task-dev:
+    driver: bridge
