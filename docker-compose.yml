@@ -9,10 +9,10 @@ services:
     ports:
       - "80:80"
     links:
-      - php  
+      - php
       - mysql
-    networks:
-      - task-dev    
+#    networks:
+#      - task-dev
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./www/html:/var/www/html
@@ -22,12 +22,12 @@ services:
     container_name: vue.task.php
     image: php:8.0-fpm
     build: './php/'
-    expose: 
+    expose:
        - 9000
-    links:  
+    links:
        - mysql
-    networks:
-      - task-dev    
+#    networks:
+#      - task-dev
     volumes:
       - ./www/html:/var/www/html
     restart: unless-stopped
@@ -42,10 +42,10 @@ services:
       - ./www/html:/var/www/html
     ports:
       - ${EXTERNAL_NODE_PORT:-5173}:5173
-    networks:
-      - task-dev
+#    networks:
+#      - task-dev
     restart: unless-stopped
-  
+
   mysql:
     container_name: vue.task.mysql
     build: './mysql/'
@@ -59,10 +59,10 @@ services:
       - MYSQL_ROOT_PASSWORD=pwd
       - MYSQL_USER=usr
       - MYSQL_PASSWORD=pwd
-    networks:
-      - task-dev    
+#    networks:
+#      - task-dev    
     restart: unless-stopped
-    
-networks:
-  task-dev:
-    driver: bridge
+
+#networks:
+#  task-dev:
+#    driver: bridge

@@ -13,6 +13,5 @@ RUN apt install git -y
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN mv composer.phar /usr/local/bin/composer
-#CMD bash -c "composer install"
 
 #RUN apt-get install phpunit
