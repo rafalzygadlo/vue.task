@@ -16,6 +16,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
+        $team =\App\Models\Team::factory()->create([
+            'name' => 'admins',
+            'user_id' => 1,
+        ]);
+
+        print_r($team);
+
          \App\Models\User::factory()->create([
              'name' => 'Test User',
              'email' => 'qotsa@op.pl',
